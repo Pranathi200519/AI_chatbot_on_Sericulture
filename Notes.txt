@@ -1,0 +1,67 @@
+// What does evaaluate metrics.py does
+
+1) This model turns sentences into vector embeddings:
+    **embed_model = SentenceTransformer("trained_embed_model")**
+
+2) Loads a dataset file:
+    **DATA_FILE = "clean_dataset.json"**
+    e.g, {
+    "question": "some question",
+    "answer": "some answer"
+        }
+
+3) A> Cosine Similarity:
+
+  ***q_emb = embed_model.encode([question])
+    a_emb = embed_model.encode([answer])
+    cos_sim = cosine_similarity(q_emb, a_emb)[0][0]***
+
+    - Converts question → embedding vector
+    - Converts answer → embedding vector
+    - Measures how similar these vectors are
+    - Output range: -1 to 1
+        1 = very similar
+        0 = unrelated
+        -1 = opposite meaning
+
+    B> BERTScore analyzes at the token level using BERT embeddings:
+        It measures:
+        - Precision = how much of the answer matches the question
+        - Recall = how much of the question is covered by the answer
+        - F1 = harmonic mean of both → the final score(Range : 0.5 – 0.9)
+
+4) It loops over all dataset items
+
+    For each pair:
+        computes cosine similarity
+        computes BERTScore
+        collects the results
+
+5) Prints Average Score:
+
+   *** print(f"BERTScore (F1): {np.mean(bert_scores):.4f}")
+       print(f"Cosine Similarity: {np.mean(cos_scores):.4f}") ***
+
+        =========== FINAL SCORES ===========
+        BERTScore (F1):      0.8123
+        Cosine Similarity:   0.7431
+        ====================================
+
+👉 Your code evaluates how good your dataset’s answers are
+👉 using both semantic similarity (cosine) and token-level similarity (BERTScore)
+
+Both Cosine and BertScore are used in the program : 
+    Cosine checks if question and answer are generally related
+    BERTScore checks if the answer actually contains the required information.
+
+    Running the program usually takes much time (Dataset matters - the more big dataset the more time it takes to evaluate)
+    The program can take a long time, especially because of the BERTScore step.
+    Because BERTScore internally loads a BERT model and compares every token with every token.
+    Slow on CPU compared to running on GPU
+    [ ~ 1 - 2 hour] - Evaluation in Cosine may take few seconds, but BERTScore takes much time.
+
+
+IMPORTANT NOTE:
+ + Dont't Run Evaluation metrics multiple times, running the full program multiple times is usually not good or necessary.
+ + Run the full evaluation once
+ + Run oly if you have made any changes to the Model/Code/Dataset

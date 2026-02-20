@@ -1,0 +1,64 @@
+# python
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.log
+
+# env
+
+venv/
+env/
+ENV/
+.venv/
+
+# IDE junk
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# Environment Variables
+
+.env
+.env,*
+
+# Model Files 
+
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.onnx
+
+
+# Sentence Transformer / HF files
+
+tokenizer.json
+tokenizer_config.json
+special_tokens_map.json
+sentencepiece.bpe.model
+vocab.txt
+
+# faiss
+
+faiss_index.bin
+
+# Cache
+
+.cache/
+*.cache
+

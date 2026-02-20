@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sericulture Chatbot 🌿</title>
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(180deg, #e6f0ff, #ffffff);
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h2 {
+        color: #003366;
+        margin-top: 20px;
+        font-size: 26px;
+      }
+      .container {
+        display: flex;
+        width: 90%;
+        max-width: 1000px;
+        height: 75vh;
+        margin-top: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        background: white;
+        overflow: hidden;
+      }
+
+      /* LEFT SIDEBAR */
+      .history {
+        width: 30%;
+        background: #f8fbff;
+        border-right: 2px solid #dde3f0;
+        padding: 15px;
+        overflow-y: auto;
+      }
+      .history h3 {
+        color: #004aad;
+        margin-top: 0;
+        font-size: 18px;
+      }
+      .history-item {
+        background: #e9f2ff;
+        margin: 8px 0;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #003366;
+        font-size: 14px;
+        transition: background 0.18s;
+      }
+      .history-item:hover {
+        background: #cfe3ff;
+      }
+
+      /* RIGHT CHAT AREA */
+      .chat-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+      }
+      .chat-container {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+      .message {
+        margin: 10px 0;
+        padding: 12px 16px;
+        border-radius: 12px;
+        max-width: 80%;
+        line-height: 1.5;
+        font-size: 15px;
+      }
+      .user {
+        align-self: flex-end;
+        background: #d0ebff;
+        color: #003366;
+      }
+      .bot {
+        align-self: flex-start;
+        background: #f1f1f1;
+        color: #000;
+      }
+      .typing {
+        color: #666;
+        font-style: italic;
+        padding: 10px;
+      }
+      .input-area {
+        display: flex;
+        margin-top: 10px;
+      }
+      input {
+        flex: 1;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #aaa;
+        font-size: 15px;
+      }
+      button {
+        background: #004aad;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        margin-left: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      button:hover {
+        background: #003080;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Sericulture Chatbot Assistant</h2>
+
+    <div class="container">
+      <!-- LEFT: CHAT HISTORY -->
+      <div class="history">
+        <h3>Chat History</h3>
+        <div id="historyList"></div>
+      </div>
+
+      <!-- RIGHT: CHAT -->
+      <div class="chat-section">
+        <div class="chat-container" id="chatContainer">
+          <div class="message bot">
+            🤖 Hello! Ask me anything about sericulture.
+          </div>
+        </div>
+
+        <div class="input-area">
+          <input
+            id="queryInput"
+            placeholder="Type your question..."
+            onkeypress="handleKey(event)"
+          />
+          <button id="askBtn">Ask</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const API_URL = "http://127.0.0.1:8020/chat"; // Backend URL
+
+      const chatContainer = document.getElementById("chatContainer");
+      const queryInput = document.getElementById("queryInput");
+      const historyList = document.getElementById("historyList");
+      const askBtn = document.getElementById("askBtn");
+
+      // Load history from localStorage
+      let chatHistory = JSON.parse(
+        localStorage.getItem("chat_history") || "[]"
+      );
+
+      /* FUNCTIONS */
+      function appendMessage(text, sender) {
+        const msg = document.createElement("div");
+        msg.className = "message " + sender;
+        msg.innerHTML = text;
+        chatContainer.appendChild(msg);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+
+      function renderHistorySidebar() {
+        historyList.innerHTML = "";
+
+        if (chatHistory.length === 0) {
+          historyList.innerHTML = "<p>No history available.</p>";
+          return;
+        }
+
+        chatHistory.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.className = "history-item";
+          div.innerHTML = item.question.slice(0, 25) + "...";
+          div.onclick = () => loadChat(index);
+          historyList.appendChild(div);
+        });
+      }
+
+      function loadChat(index) {
+        const record = chatHistory[index];
+        chatContainer.innerHTML = "";
+
+        appendMessage("🧑‍🌾 " + record.question, "user");
+        appendMessage("🤖 " + record.answer, "bot");
+      }
+
+      function renderChatFromHistoryList() {
+        chatContainer.innerHTML = "";
+        chatHistory.forEach((item) => {
+          appendMessage("🧑‍🌾 " + item.question, "user");
+          appendMessage("🤖 " + item.answer, "bot");
+        });
+      }
+
+      function sendMessage() {
+        const query = queryInput.value.trim();
+        if (!query) return;
+
+        appendMessage("🧑‍🌾 " + query, "user");
+        queryInput.value = "";
+
+        const typing = document.createElement("div");
+        typing.className = "typing";
+        typing.innerText = "🤖 Bot is typing...";
+        chatContainer.appendChild(typing);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+
+        askBtn.disabled = true;
+
+        fetch(API_URL, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ query }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            typing.remove();
+
+            const answer = data.answer || "⚠️ No answer returned.";
+            appendMessage("🤖 " + answer, "bot");
+
+            // SAVE CHAT TO HISTORY
+            chatHistory.push({
+              question: query,
+              answer: answer,
+              time: new Date().toLocaleString(),
+            });
+
+            localStorage.setItem("chat_history", JSON.stringify(chatHistory));
+            renderHistorySidebar();
+          })
+          .catch(() => {
+            typing.remove();
+            appendMessage("❌ Backend not reachable.", "bot");
+          })
+          .finally(() => {
+            askBtn.disabled = false;
+          });
+      }
+
+      askBtn.addEventListener("click", sendMessage);
+
+      function handleKey(event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          sendMessage();
+        }
+      }
+
+      /* INITIAL LOAD */
+      renderHistorySidebar();
+      renderChatFromHistoryList();
+    </script>
+  </body>
+</html>
