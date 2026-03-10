@@ -1,100 +1,83 @@
-# *AI Chatbot on sericulture*
+# AI Chatbot on Sericulture
 
 ## 📌 Overview
 
-This project presents an ***AI-based Sericulture Chatbot*** designed to deliver accurate, real-time advisory support specifically for sericulture farmers. The system leverages a lightweight Large Language Model (LLM) to process natural language queries and generate contextually relevant responses tailored to domain-specific needs.
+This project presents an **AI-based Sericulture Chatbot** designed to provide accurate and real-time advisory support for sericulture farmers. The system uses a **lightweight Large Language Model (LLM)** to understand natural language queries and generate contextually relevant responses based on domain-specific knowledge.
 
-The chatbot centralizes verified sericulture knowledge into an intelligent advisory system, reducing dependency on scattered resources and supporting informed decision-making.
+The chatbot consolidates verified sericulture information into a single intelligent advisory platform, reducing reliance on scattered resources and helping farmers make informed decisions.
 
 ---
 
 ## 🚀 Key Features
 
-- 💬 Natural language query processing
-- 🔎 Retrieval-Augmented Generation (RAG) architecture
-- 🧠 Sentence Transformer-based semantic embeddings
-- 📚 Curated sericulture knowledge base
-- 🌐 Simple and user-friendly web interface
-- 📡 Optimized for low-connectivity and resource-constrained environments
-- 📊 Semantic similarity-based performance evaluation
+* 💬 Natural language query understanding
+* 🔎 Retrieval-Augmented Generation (RAG) architecture
+* 🧠 Sentence Transformer–based semantic embeddings
+* 📚 Curated sericulture knowledge base
+* 🌐 Simple and user-friendly web interface
+* 📡 Optimized for low-connectivity environments
+* 📊 Semantic similarity–based performance evaluation
 
 ---
 
 ## 🏗️ System Architecture
 
-The chatbot is built using a **Retrieval-Augmented Generation (RAG)** approach:
+The chatbot follows a **Retrieval-Augmented Generation (RAG)** pipeline:
 
-1. **Knowledge Base Creation**
-   - Domain-specific sericulture documents are curated and cleaned.
+### 1️⃣ Knowledge Base Creation
 
-2. **Embedding Generation**
-   - Sentence Transformer models convert documents into semantic vectors.
+Domain-specific sericulture documents are collected, curated, and preprocessed.
 
-3. **Vector Storage**
-   - Embeddings are stored in a vector database for efficient similarity search.
+### 2️⃣ Embedding Generation
 
-4. **Query Processing**
-   - User queries are converted into embeddings.
-   - Relevant documents are retrieved via similarity matching.
+Sentence Transformer models convert textual data into **semantic vector embeddings**.
 
-5. **Response Generation**
-   - The lightweight LLM generates responses grounded in retrieved context.
+### 3️⃣ Vector Storage
+
+The embeddings are stored in a **FAISS vector database** for efficient similarity search.
+
+### 4️⃣ Query Processing
+
+User queries are converted into embeddings and compared with stored vectors to retrieve the most relevant information.
+
+### 5️⃣ Response Generation
+
+A lightweight **LLM generates context-aware responses** using the retrieved knowledge.
 
 ---
 
 ## 🎯 Deployment Design
 
-The system is designed with rural deployment in mind:
+The chatbot is designed keeping **rural deployment conditions** in mind:
 
-- Lightweight model architecture
-- Minimal computational requirements
-- Suitable for unstable or low-bandwidth internet conditions
-- Easy-to-use web interface for non-technical users
+* Lightweight model architecture
+* Minimal computational requirements
+* Suitable for low-bandwidth internet environments
+* Easy-to-use web interface for non-technical users
 
 ---
 
 ## 📈 Evaluation
 
-System performance is evaluated using **semantic similarity metrics**, measuring how closely chatbot responses align with expert guidance and expected advisory outputs.
+System performance is evaluated using **semantic similarity metrics**, which measure how closely chatbot responses align with expert recommendations and expected advisory outputs.
 
 ---
 
 ## 🌱 Impact
 
-By centralizing authentic sericulture knowledge into an accessible AI system, this project:
+By centralizing verified sericulture knowledge into an accessible AI system, this project:
 
-- Supports informed farming decisions
-- Reduces misinformation
-- Enhances rural productivity
-- Promotes sustainable sericulture growth
-- Demonstrates the value of affordable, domain-specific AI solutions
+* Supports **informed farming decisions**
+* Reduces misinformation in agricultural advisory services
+* Improves productivity in rural communities
+* Promotes **sustainable sericulture practices**
+* Demonstrates the value of **domain-specific AI solutions**
 
 ---
 
 ## 🛠️ Technologies Used
 
-- Python
-- Sentence Transformers
-- FAISS (Vector Database)
-- Lightweight LLM
-- Retrieval-Augmented Generation (RAG)
-- Web Interface (Frontend)
-
----
-
-## User-Interface
-
-<img width="1848" height="892" alt="Chatbot-UI" src="https://github.com/user-attachments/assets/805d96f7-11c8-472d-8b07-ee40687c98ae" />
-
----
-
-### CONTRIBUTIONS BY:
-
-PRANATHI B P<br>
-SAHANA SURIMUTT<br>
-SINCHAN V<br>
-SPOORTHI S V<br>
-
-
-
-
+* Python
+* Sentence Transformers
+* FAISS (Vector Database)
+* Lightweight Large Language Model (LLM)
