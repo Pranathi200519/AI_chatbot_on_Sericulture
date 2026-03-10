@@ -90,10 +90,10 @@ By centralizing authentic sericulture knowledge into an accessible AI system, th
 
 ### CONTRIBUTIONS BY:
 
-PRANATHI B P 
-SAHANA SURIMUTT
-SINCHAN V
-SPOORTHI S V 
+PRANATHI B P<br>
+SAHANA SURIMUTT<br>
+SINCHAN V<br>
+SPOORTHI S V<br>
 
 
 
