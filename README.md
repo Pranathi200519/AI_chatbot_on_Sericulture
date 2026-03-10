@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-This project presents an **AI-based Sericulture Chatbot** designed to deliver accurate, real-time advisory support specifically for sericulture farmers. The system leverages a lightweight Large Language Model (LLM) to process natural language queries and generate contextually relevant responses tailored to domain-specific needs.
+This project presents an *AI-based Sericulture Chatbot* designed to deliver accurate, real-time advisory support specifically for sericulture farmers. The system leverages a lightweight Large Language Model (LLM) to process natural language queries and generate contextually relevant responses tailored to domain-specific needs.
 
 The chatbot centralizes verified sericulture knowledge into an intelligent advisory system, reducing dependency on scattered resources and supporting informed decision-making.
 
